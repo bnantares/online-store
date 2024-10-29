@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "../models/IProduct";
-import { fetchProducts } from "./ActionCreatosrs";
+import { fetchProducts } from "./ActionCreators";
 
 interface ProductState {
     products: IProduct[];
@@ -26,6 +26,7 @@ export const productSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(fetchProducts.fulfilled.type, (state, action: PayloadAction<IProduct[]>) => {
+                console.log('Выполнили подгрузку продуктов')
                 state.isLoading = false;
                 state.error = '';
                 state.products = action.payload;

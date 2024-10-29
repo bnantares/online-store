@@ -11,6 +11,8 @@ const ProductDetails = () => {
     return (
         <div>
             {product?.title}
+            {product?.description}
+            {product?.price}$
         </div>
     )
 }
