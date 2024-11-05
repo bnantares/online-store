@@ -26,7 +26,6 @@ export const productSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(fetchProducts.fulfilled.type, (state, action: PayloadAction<IProduct[]>) => {
-                console.log('Выполнили подгрузку продуктов')
                 state.isLoading = false;
                 state.error = '';
                 state.products = action.payload;
