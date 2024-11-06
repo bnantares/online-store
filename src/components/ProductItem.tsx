@@ -9,10 +9,9 @@ interface ProductItemProps {
 export const ProductItem: FC<ProductItemProps> = ({ product }) => {
     return (
         <div>
-            
-            {product.title}
+            <div>{product.title}</div>
             <NavLink to={`${product.id}`}>
-                <img style={{width: '400px', height: '400px'}} src={product.image} alt="" />
+                <img style={{width: '300px', height: '300px'}} src={product.image} alt="" />
             </NavLink>
         </div>
     )

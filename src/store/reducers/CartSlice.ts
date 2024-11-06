@@ -15,10 +15,12 @@ const initialState: CartState = {
     cart: {
         id: 1,
         userId: 1,
-        products: [{
-            productId: 1,
-            quantity: 1
-        }]
+        products: [
+            // {
+            //     productId: 1,
+            //     quantity: 1
+            // }
+        ]
     },
     isLoading: false,
     error: '',
