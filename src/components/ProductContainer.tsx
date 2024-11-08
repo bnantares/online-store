@@ -1,19 +1,22 @@
 import { productAPI } from "../services/ProductService"
 import { ProductItem } from "./ProductItem";
+import { Grid } from "@mantine/core";
 
 const ProductContainer = () => {
-    const {data: products, error, isLoading } = productAPI.useFetchAllProductsQuery(5);
+    const {data: products, error, isLoading } = productAPI.useFetchAllProductsQuery(15);
 
     return (
         <div>
             {isLoading && <h1>Идет загрузка..</h1>}
             {error && <h1>Ошибка!</h1>}
-            {products?.map(product =>
-                 <ProductItem
-                    key={product.id}
-                    product={product}
-                 />
-            )}
+            <Grid justify="center" align="stretch">
+                {products?.map(product =>
+                     <ProductItem
+                        key={product.id}
+                        product={product}
+                     />
+                )}
+            </Grid>
         </div>
     )
 }

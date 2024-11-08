@@ -25,7 +25,7 @@ export const productAPI = createApi({
                 const results = await Promise.all(productIds.map(productId => baseQuery(`/products/${productId}`)));
                 const merged = [].concat(...results.map(result => result.data));
 	            const errors = [].concat(...results.filter(result => result.error != null).map(result => result.error));
-                debugger
+
 	            if (errors.length > 0)
 	                return { error: errors };            
 	            return { data: merged };
