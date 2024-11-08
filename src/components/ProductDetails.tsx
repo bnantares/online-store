@@ -1,8 +1,8 @@
 import { useLoaderData } from "react-router-dom";
 import { productAPI } from "../services/ProductService";
 import { useActions } from "../hooks/useActions";
-import { IProduct } from "../store/models/IProduct";
 import { ICartProductItem } from "../store/models/ICart";
+import { Carousel } from '@mantine/carousel';
 import { useState } from "react";
 
 export function loader({ params }) {
@@ -28,6 +28,14 @@ const ProductDetails = () => {
             <br />
             TITLE: {product?.title}
             <br />
+            <Carousel
+                withIndicators
+                height={200}
+            >
+                <Carousel.Slide><img src={product?.image} width={250} height={250}/></Carousel.Slide>
+                <Carousel.Slide><img src={product?.image} width={250} height={250}/></Carousel.Slide>
+                <Carousel.Slide><img src={product?.image} width={250} height={250}/></Carousel.Slide>
+            </Carousel>
             DESC: {product?.description}
             <br />
             PRICE: {product?.price}$
