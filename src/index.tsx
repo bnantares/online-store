@@ -2,7 +2,7 @@ import './index.css'
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import App from './App.tsx'
-import { createTheme, MantineProvider } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
@@ -17,9 +17,7 @@ import ProductContainer from './components/ProductContainer.tsx'
 import Cart from './components/Cart.tsx'
 import Index from './components/Index.tsx'
 import ErrorPage from './ErrorPage.tsx'
-import ProductDetails, {
-  loader as productLoader
-} from './components/ProductDetails.tsx'
+import ProductDetails from './components/ProductDetails.tsx'
 
 const store = setupStore();
 
@@ -42,7 +40,6 @@ const router = createBrowserRouter(
         />
         <Route
           path='shop/:productId'
-          loader={productLoader}
           element={<ProductDetails />}
         />
       </Route>

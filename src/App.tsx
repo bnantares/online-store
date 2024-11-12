@@ -20,14 +20,14 @@ function App() {
           </NavLink>
         </Group>
       </AppShell.Header>
-      <AppShell.Navbar p="md">
+      {/* <AppShell.Navbar p="md">
         Navbar
         {Array(15)
           .fill(0)
           .map((_, index) => (
             <Skeleton key={index} h={28} mt="sm" animate={false} />
           ))}
-      </AppShell.Navbar>
+      </AppShell.Navbar> */}
       <AppShell.Main>
         <Outlet />
       </AppShell.Main>

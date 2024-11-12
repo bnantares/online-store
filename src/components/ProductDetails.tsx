@@ -1,26 +1,24 @@
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { productAPI } from "../services/ProductService";
 import { useActions } from "../hooks/useActions";
 import { ICartProductItem } from "../store/models/ICart";
 import { Carousel } from '@mantine/carousel';
-import { useState } from "react";
-
-export function loader({ params }) {
-    return (params.productId)
-}
+import { useAppSelector } from "../hooks/redux";
 
 const ProductDetails = () => {
-    const [isAdded, setIsAdded] = useState(false);
-    const productId: number = useLoaderData() as number;
+    const dispatch = useActions();
+    const {cart: cart} = useAppSelector(state => state.cartReducer);
+    const productIdsArray = cart.products.map(product => product.productId);
+
+    const params = useParams();
+    const productId: number = Number(params.productId)
     const {data: product} = productAPI.useFetchSpecificProductQuery(productId);
-    const dispatch = useActions()
+
+    const isAdded: boolean = productIdsArray.includes(productId);
 
     const addItemToCart = (product: ICartProductItem) => {
-        dispatch.addToCart(product)
-        setIsAdded(true);
+        dispatch.addToCart(product);
     }
-
-
 
     return (
         <div>
