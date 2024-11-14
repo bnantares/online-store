@@ -11,7 +11,7 @@ const ProductDetails = () => {
     const productIdsArray = cart.products.map(product => product.productId);
 
     const params = useParams();
-    const productId: number = Number(params.productId)
+    const productId = Number(params.productId);
     const {data: product} = productAPI.useFetchSpecificProductQuery(productId);
 
     const isAdded: boolean = productIdsArray.includes(productId);

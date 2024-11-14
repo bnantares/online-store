@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux"
-import { IProduct } from "../models/IProduct";
-import { ICart } from "../models/ICart";
+import { ICart, ICartProductItem } from "../models/ICart";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CartAction, CartActionTypes } from "../models/CartActionTypes";
 
@@ -18,7 +17,7 @@ export const fetchCart = createAsyncThunk(
     }
 )
 
-export const addToCart = (product: IProduct) => {
+export const addToCart = (product: ICartProductItem) => {
     return (dispatch: Dispatch<CartAction>) => {
         try {
             dispatch({type: CartActionTypes.ADD_ITEM, payload: product})

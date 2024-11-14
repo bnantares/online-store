@@ -5,5 +5,4 @@ export interface IProduct {
     category: string;
     description: string;
     image: string;
-    isAdded: boolean;
 }
