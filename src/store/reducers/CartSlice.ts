@@ -23,15 +23,21 @@ const initialState: CartState = {
 export const cartSlice = createSlice({
     name: 'cart',
     initialState,
-    reducers: {},
-    extraReducers(builder) {
-        builder
-            .addCase(ADD_ITEM, (state, action: PayloadAction<ICartProductItem>) => {
-                state.isLoading = false;
-                state.error = '';
-                state.cart.products.push(action.payload)
-            })
+    reducers: {
+        addItem: (state, action: PayloadAction<ICartProductItem>) => {
+            state.isLoading = false;
+            state.error = '';
+            state.cart.products.push(action.payload)
+        }
     },
+    // extraReducers(builder) {
+    //     builder
+    //         .addCase(ADD_ITEM, (state, action: PayloadAction<ICartProductItem>) => {
+    //             state.isLoading = false;
+    //             state.error = '';
+    //             state.cart.products.push(action.payload)
+    //         })
+    // },
 })
 
 export default cartSlice.reducer

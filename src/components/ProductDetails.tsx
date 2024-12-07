@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
 import { productAPI } from "../services/ProductService";
-import { useActions } from "../hooks/useActions";
 import { ICartProductItem } from "../store/models/ICart";
 import { Carousel } from '@mantine/carousel';
-import { useAppSelector } from "../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { cartSlice } from "../store/reducers/CartSlice";
 
 const ProductDetails = () => {
-    const dispatch = useActions();
+    const dispatch = useAppDispatch()
     const {cart: cart} = useAppSelector(state => state.cartReducer);
     const productIdsArray = cart.products.map(product => product.productId);
 
@@ -16,8 +16,8 @@ const ProductDetails = () => {
 
     const isAdded: boolean = productIdsArray.includes(productId);
 
-    const addItemToCart = (product: ICartProductItem) => {
-        dispatch.addToCart(product);
+    const addItemToCartt = (product: ICartProductItem) => {
+        dispatch(cartSlice.actions.addItem(product))
     }
 
     return (
@@ -42,7 +42,7 @@ const ProductDetails = () => {
                 ? <button disabled={isAdded}>
                     Already added!
                   </button> 
-                : <button onClick={() => addItemToCart({productId: product!.id, quantity: 1})}>
+                : <button onClick={() => addItemToCartt({productId: product!.id, quantity: 1})}>
                     Add to cart
                   </button>
             }
