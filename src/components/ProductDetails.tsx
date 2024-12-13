@@ -1,26 +1,24 @@
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { productAPI } from "../services/ProductService";
-import { useActions } from "../hooks/useActions";
-import { IProduct } from "../store/models/IProduct";
 import { ICartProductItem } from "../store/models/ICart";
-import { useState } from "react";
-
-export function loader({ params }) {
-    return (params.productId)
-}
+import { Carousel } from '@mantine/carousel';
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { cartSlice } from "../store/reducers/CartSlice";
 
 const ProductDetails = () => {
-    const [isAdded, setIsAdded] = useState(false);
-    const productId: number = useLoaderData() as number;
+    const dispatch = useAppDispatch()
+    const {cart: cart} = useAppSelector(state => state.cartReducer);
+    const productIdsArray = cart.products.map(product => product.productId);
+
+    const params = useParams();
+    const productId = Number(params.productId);
     const {data: product} = productAPI.useFetchSpecificProductQuery(productId);
-    const dispatch = useActions()
 
-    const addItemToCart = (product: ICartProductItem) => {
-        dispatch.addToCart(product)
-        setIsAdded(true);
+    const isAdded: boolean = productIdsArray.includes(productId);
+
+    const addItemToCartt = (product: ICartProductItem) => {
+        dispatch(cartSlice.actions.addItem(product))
     }
-
-
 
     return (
         <div>
@@ -28,6 +26,14 @@ const ProductDetails = () => {
             <br />
             TITLE: {product?.title}
             <br />
+            <Carousel
+                withIndicators
+                height={200}
+            >
+                <Carousel.Slide><img src={product?.image} width={250} height={250}/></Carousel.Slide>
+                <Carousel.Slide><img src={product?.image} width={250} height={250}/></Carousel.Slide>
+                <Carousel.Slide><img src={product?.image} width={250} height={250}/></Carousel.Slide>
+            </Carousel>
             DESC: {product?.description}
             <br />
             PRICE: {product?.price}$
@@ -36,7 +42,7 @@ const ProductDetails = () => {
                 ? <button disabled={isAdded}>
                     Already added!
                   </button> 
-                : <button onClick={() => addItemToCart({productId: product!.id, quantity: 1})}>
+                : <button onClick={() => addItemToCartt({productId: product!.id, quantity: 1})}>
                     Add to cart
                   </button>
             }

@@ -19,6 +19,13 @@ export const productAPI = createApi({
             query: (id: number) => ({
                 url: `/products/${id}`
             })
+        }),
+        fetchCartProducts: build.query<IProduct[], number[]>({
+            async queryFn(productIds, _api, _extraOptions, baseQuery) {
+                const results = await Promise.all(productIds.map(productId => baseQuery(`/products/${productId}`)));
+                const merged: IProduct[] = results.map(result => result.data) as IProduct[];          
+	            return { data: merged };
+            },
         })
     })
 })
