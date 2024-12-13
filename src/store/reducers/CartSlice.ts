@@ -1,8 +1,5 @@
-import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICart, ICartProductItem } from "../models/ICart";
-import { CartActionTypes } from "../models/CartActionTypes";
-
-const ADD_ITEM = createAction<ICartProductItem>(CartActionTypes.ADD_ITEM);
 
 interface CartState {
     cart: ICart;
@@ -30,14 +27,6 @@ export const cartSlice = createSlice({
             state.cart.products.push(action.payload)
         }
     },
-    // extraReducers(builder) {
-    //     builder
-    //         .addCase(ADD_ITEM, (state, action: PayloadAction<ICartProductItem>) => {
-    //             state.isLoading = false;
-    //             state.error = '';
-    //             state.cart.products.push(action.payload)
-    //         })
-    // },
 })
 
 export default cartSlice.reducer

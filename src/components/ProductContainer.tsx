@@ -9,20 +9,16 @@ import {
 } from "../store/reducers/FilterSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { checkboxes } from "../store/reducers/checkboxes";
 
 const ProductContainer = () => {
     const dispatch = useAppDispatch();
     const {data: products, error, isLoading } = productAPI.useFetchAllProductsQuery(15);
     
-    const filterValue = useAppSelector(state => state.filterReducer.searchString);
+    const stringFilterValue = useAppSelector(state => state.filterReducer.searchString);
+    const selectedCategoriesArray = useAppSelector(state => state.filterReducer.selectedCategoriesArray)
 
     const veryFilteredProducts = useSelector(memoizedSelectedAndFiltered)
-
-    const [jeweleryChecked, setJeweleryChecked] = useState(false);
-    const [electronicsChecked, setElectronicsChecked] = useState(false);
-    const [mensClothingChecked, setMensClothingChecked] = useState(false);
-    const [womensClothingChecked, setWomensClothingChecked] = useState(false);
 
     const dispatchAction = (isChecked: boolean, category: string) => {
         const categoryLowerCased = category.toLowerCase();
@@ -38,48 +34,22 @@ const ProductContainer = () => {
             <AppShell.Navbar p="md">
                 Filter by name
                 <input
-                    value={filterValue}
+                    value={stringFilterValue}
                     type="search"
                     onChange={(event) => {
                         dispatch(setSearchString(event.target.value));
                     }} 
                 />
+                {checkboxes.map(checkbox => 
                 <Checkbox
-                    name="jewelery"
-                    label="Jewelery"
-                    checked={jeweleryChecked}
+                    name={checkbox.name}
+                    label={checkbox.label}
+                    checked={selectedCategoriesArray.includes(checkbox.name)}
                     onChange={(event) => {
-                        setJeweleryChecked(event.target.checked);
                         dispatchAction(event.target.checked, event.target.name);
                     }}
                 />
-                <Checkbox
-                    name="electronics"
-                    label="Electronics"
-                    checked={electronicsChecked}
-                    onChange={(event) => {
-                        setElectronicsChecked(event.target.checked);
-                        dispatchAction(event.target.checked, event.target.name);
-                    }}
-                />
-                <Checkbox
-                    name="men's clothing"
-                    label="Men's clothing"
-                    checked={mensClothingChecked}
-                    onChange={(event) => {
-                        setMensClothingChecked(event.target.checked);
-                        dispatchAction(event.target.checked, event.target.name);
-                    }}
-                />
-                <Checkbox
-                    name="women's clothing"
-                    label="Women's clothing"
-                    checked={womensClothingChecked}
-                    onChange={(event) => {
-                        setWomensClothingChecked(event.target.checked);
-                        dispatchAction(event.target.checked, event.target.name);
-                    }}
-                />
+                )}
             </AppShell.Navbar>
             {isLoading && <h1>Идет загрузка..</h1>}
             {error && <h1>Ошибка!</h1>}
@@ -96,11 +66,5 @@ const ProductContainer = () => {
         </div>
     )
 }
-
-// function Loading() {
-//     return (
-//         <h2>Загрузка...</h2>
-//     )
-// }
 
 export default ProductContainer;
