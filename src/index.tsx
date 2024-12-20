@@ -18,6 +18,7 @@ import Cart from './components/Cart.tsx'
 import Index from './components/Index.tsx'
 import ErrorPage from './ErrorPage.tsx'
 import ProductDetails from './components/ProductDetails.tsx'
+import Form from './components/Form.tsx';
 
 const store = setupStore();
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter(
         <Route
           path='shop/:productId'
           element={<ProductDetails />}
+        />
+        <Route
+          path='form'
+          element={<Form />}
         />
       </Route>
     </Route>

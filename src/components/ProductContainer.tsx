@@ -53,16 +53,14 @@ const ProductContainer = () => {
             </AppShell.Navbar>
             {isLoading && <h1>Идет загрузка..</h1>}
             {error && <h1>Ошибка!</h1>}
-            {/* <Suspense fallback={<Loading />}> */}
-                <Grid justify="center" align="stretch">
-                    {veryFilteredProducts?.map(product =>
-                         <ProductItem
-                            key={product.id}
-                            product={product}
-                         />
-                    )}
-                </Grid>
-            {/* </Suspense>    */}
+            <Grid justify="center" align="stretch">
+                {veryFilteredProducts?.map(product =>
+                     <ProductItem
+                        key={product.id}
+                        product={product}
+                     />
+                )}
+            </Grid>
         </div>
     )
 }
