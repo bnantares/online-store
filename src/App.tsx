@@ -1,4 +1,4 @@
-import { AppShell, Group, Skeleton } from '@mantine/core';
+import { AppShell, Group } from '@mantine/core';
 import { NavLink, Outlet } from 'react-router-dom'
 import './App.css'
 
@@ -18,33 +18,16 @@ function App() {
           <NavLink to={`cart`}>
             Cart
           </NavLink>
+          <NavLink to={`form`}>
+            Form
+          </NavLink>
         </Group>
       </AppShell.Header>
-      {/* <AppShell.Navbar p="md">
-        Navbar
-        {Array(15)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} h={28} mt="sm" animate={false} />
-          ))}
-      </AppShell.Navbar> */}
+
       <AppShell.Main>
         <Outlet />
       </AppShell.Main>
     </AppShell>
-    // <>
-    //   <div>
-    //     <NavLink to={`shop`}>
-    //       Shop
-    //     </NavLink>
-    //     <NavLink to={`cart`}>
-    //       Cart
-    //     </NavLink>
-    //     <div>
-    //       <Outlet />
-    //     </div>
-    //   </div>
-    // </>
   )
 }
 
