@@ -13,7 +13,8 @@ import { checkboxes } from "../store/reducers/checkboxes";
 
 const ProductContainer = () => {
     const dispatch = useAppDispatch();
-    const {data: products, error, isLoading } = productAPI.useFetchAllProductsQuery(15);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const {data: _products, error, isLoading } = productAPI.useFetchAllProductsQuery(15);
     
     const stringFilterValue = useAppSelector(state => state.filterReducer.searchString);
     const selectedCategoriesArray = useAppSelector(state => state.filterReducer.selectedCategoriesArray)

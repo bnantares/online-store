@@ -20,6 +20,7 @@ type Inputs = {
 export default function App() {
   const { 
     control,
+    getValues,
     handleSubmit,
     reset,
   } = useForm<Inputs>({
@@ -36,6 +37,13 @@ export default function App() {
     console.log(data);
     reset()
   }
+
+  // const onSubmit = async () => {
+  //   const values = getValues();
+  //   console.log(values);
+  //   reset()
+  // };
+
   return (
     <div className="App" style={{marginRight: "300px"}}>
       <Container fluid>
@@ -43,8 +51,6 @@ export default function App() {
           <Form
             control={control}
             onSubmit={handleSubmit(onSubmit)}
-            // onSubmit={(e) => console.log(e.data)}
-            onError={(e) => console.log(`ОШИБКА ${e}`)}
           >
             <Stack>
               <Checkbox
@@ -91,6 +97,7 @@ export default function App() {
               <Group mt="md">
                 <Button type="submit">Submit</Button>
               </Group>
+              <Button onClick={handleSubmit(onSubmit)}>Отправить</Button>
             </Stack>
           </Form>
         </Paper>
