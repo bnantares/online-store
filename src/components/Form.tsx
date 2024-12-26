@@ -1,4 +1,4 @@
-import { Form, useForm, SubmitHandler } from "react-hook-form";
+import { Form, useForm, FormSubmitHandler } from "react-hook-form";
 import {
   Checkbox,
   Textarea,
@@ -20,7 +20,6 @@ type Inputs = {
 export default function App() {
   const { 
     control,
-    handleSubmit,
     reset,
   } = useForm<Inputs>({
     defaultValues: {
@@ -32,19 +31,18 @@ export default function App() {
     }
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: FormSubmitHandler<Inputs> = (data) => {
     console.log(data);
     reset()
   }
+
   return (
     <div className="App" style={{marginRight: "300px"}}>
       <Container fluid>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Form
             control={control}
-            onSubmit={handleSubmit(onSubmit)}
-            // onSubmit={(e) => console.log(e.data)}
-            onError={(e) => console.log(`ОШИБКА ${e}`)}
+            onSubmit={onSubmit}
           >
             <Stack>
               <Checkbox
