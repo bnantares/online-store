@@ -20,6 +20,10 @@ const ProductDetails = () => {
         dispatch(cartSlice.actions.addItem(product))
     }
 
+    if (!product) {
+        return <div>Загрузка товара...</div>
+    }
+
     return (
         <div>
             ID: {product?.id}
@@ -38,7 +42,8 @@ const ProductDetails = () => {
             <br />
             PRICE: {product?.price}$
             <br />
-            {isAdded 
+            
+            {isAdded && product?.id
                 ? <button disabled={isAdded}>
                     Already added!
                   </button> 

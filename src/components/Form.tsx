@@ -1,4 +1,4 @@
-import { Form, useForm, FormSubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   Checkbox,
   Textarea,
@@ -8,41 +8,40 @@ import {
 } from "react-hook-form-mantine";
 import { Button, Group, Paper, Container, Stack } from "@mantine/core";
 import { DevTool } from "@hookform/devtools";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-type Inputs = {
-    checkbox: boolean
-    textarea: string
-    textInput: string
-    radio: string
-    datepicker: Date | null
-}
+const schema = z.object({
+  checkbox: z.boolean(),
+  textarea: z.string(),
+  textinput: z.string(),
+  radio: z.string(),
+  datepicker: z.date()
+})
+
+type FormSchemaType = z.infer<typeof schema>;
 
 export default function App() {
-  const { 
-    control,
-    reset,
-  } = useForm<Inputs>({
+  const { control, handleSubmit } = useForm<FormSchemaType>({
+    resolver: zodResolver(schema),
     defaultValues: {
       checkbox: false,
       textarea: "",
-      textInput: "",
+      textinput: "",
       radio: "",
-      datepicker: null
+      datepicker: undefined
     }
-  });
-
-  const onSubmit: FormSubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    reset()
-  }
+  })
 
   return (
     <div className="App" style={{marginRight: "300px"}}>
       <Container fluid>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <Form
-            control={control}
-            onSubmit={onSubmit}
+          <form
+            onSubmit={handleSubmit(
+              (data) => console.log(data),
+              (error) => console.log(error),
+            )}
           >
             <Stack>
               <Checkbox
@@ -60,7 +59,7 @@ export default function App() {
                 control={control}
               />
               <TextInput
-                name="textInput"
+                name="textinput"
                 placeholder="Your name"
                 label="Full name"
                 required
@@ -90,7 +89,7 @@ export default function App() {
                 <Button type="submit">Submit</Button>
               </Group>
             </Stack>
-          </Form>
+          </form>
         </Paper>
       </Container>
       <DevTool control={control} />
